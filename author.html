@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Autohar </title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400;500&family=Applied+Sans:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        :root {
+            --primary: #ffffff;
+            --primary-dark: #e5e5e5;
+            --primary-light: #f5f5f5;
+            --background: #000000;
+            --card-bg: rgba(20, 20, 20, 0.9);
+            --text: white;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            scroll-behavior: smooth;
+            height: 100%;
+            font-size: 16px;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects */
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.5;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            to {
+                transform: translateY(-100vh);
+            }
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            z-index: 1;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .logo-emoji {
+            font-size: 2.2rem;
+            animation: pulse 2s infinite alternate;
+        }
+
+        .logo-subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--primary-light);
+            font-family: 'Inter', sans-serif;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        /* Main Content */
+        .content {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            z-index: 1;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.2s; }
+        .card:nth-child(2) { animation-delay: 0.4s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 12px 32px rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Applied Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+        }
+
+        .card-badge {
+            background: var(--primary);
+            color: black;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: pulse-badge 2s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .card-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--primary-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .features-list li::before {
+            content: 'âœ“';
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .card-link:hover::after {
+            width: 100%;
+        }
+
+        .card-link i {
+            transition: transform 0.3s ease;
+        }
+
+        .card-link:hover i {
+            transform: translateX(3px);
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: var(--primary);
+            color: black;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .back-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: var(--primary-light);
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .back-button {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 2rem;
+                width: fit-content;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="background-effects">
+        <div class="grid-pattern"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Back to Home
+    </a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-emoji"></span>
+            <div>
+                <div>NEXUS AUTOHAR</div>
+                <div class="logo-subtitle">Choose your preferred autohar solution</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content">
+        <!-- MAIN -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">IMMORTAL AUTOHAR</h2>
+                <span class="card-badge">Premium</span>
+            </div>
+            <p class="card-description">
+                Premium autohar solution with advanced targeting capabilities and industry-leading success rates for maximum effectiveness.
+            </p>
+            <ul class="features-list">
+                <li>Advanced Proxy Integration</li>
+                <li>High Success Rate Algorithm</li>
+                <li>Premium Feature Access</li>
+                <li>Priority Support</li>
+            </ul>
+            <a href="https://rbxtools.st/NexusHar" class="card-link" target="_blank">
+                <span>Access Immortal</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- IMMORTAL -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">SHOCKIFY AUTOHAR</h2>
+                <span class="card-badge">Elite</span>
+            </div>
+            <p class="card-description">
+                Persistent autohar with unbreakable session management and infinite duration capabilities for continuous operation.
+            </p>
+            <ul class="features-list">
+                <li>Mid-Session Recovery</li>
+                <li>Infinite Duration Support</li>
+                <li>Enhanced Security Protocols</li>
+                <li>Advanced Monitoring</li>
+            </ul>
+            <a href="https://rbxmods.st/NexusHar" class="card-link" target="_blank">
+                <span>Access Shockify</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- SNIPPER -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">BloxHub</h2>
+                <span class="card-badge">Premium</span>
+            </div>
+            <p class="card-description">
+                Precision autohar with lightning-fast execution and stealth capabilities for optimal performance and reliability.
+            </p>
+            <ul class="features-list">
+                <li>Precision Targeting System</li>
+                <li>Optimized Performance Engine</li>
+                <li>Fast Proxy Network</li>
+                <li>Stealth Mode Operation</li>
+            </ul>
+            <a href="https://bloxhub.space/create/?ref=L4CEM9AK" class="card-link" target="_blank">
+                <span>Access Snipper</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>All autohar tools are optimized for maximum performance and reliability</p>
+    </footer>
+
+    <script>
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = Math.floor(window.innerWidth / 15);
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random size between 1px and 3px
+            const size = Math.random() * 2 + 1;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Random position
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            
+            // Random opacity
+            particle.style.opacity = Math.random() * 0.5 + 0.1;
+            
+            // Random animation duration
+            const duration = Math.random() * 20 + 10;
+            particle.style.animationDuration = `${duration}s`;
+            
+            // Random delay
+            particle.style.animationDelay = `${Math.random() * 10}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
+
+        // Add visual feedback for card interactions
+        document.querySelectorAll('.card-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Remove the preventDefault() to allow normal link behavior
+                // Add loading feedback
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
+                
+                // Reset the text after a short delay (in case the page takes time to load)
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                }, 1000);
+            });
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.card-link')) {
+                e.preventDefault();
+                e.target.click();
+            }
+        });
+
+        // Add subtle entrance animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        });
+
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+
+        console.log('ðŸŒ¬ï¸ Breezy AUTOHAR page loaded successfully!');
+    </script>
+</body>
+</html>
